@@ -13,6 +13,8 @@ CREATE TABLE IF NOT EXISTS notes (
   content_hash TEXT NOT NULL,
   mtime_ns INTEGER NOT NULL,
   size_bytes INTEGER NOT NULL,
+  char_count INTEGER NOT NULL DEFAULT 0,
+  word_count INTEGER NOT NULL DEFAULT 0,
   last_indexed_at INTEGER NOT NULL
 );
 CREATE TABLE IF NOT EXISTS headings (
@@ -71,6 +73,13 @@ class Database:
         self._conn.row_factory = sqlite3.Row
         with self._lock:
             self._conn.executescript(SCHEMA)
+            # Existing CAIRN databases predate note metrics. Add the columns in-place
+            # instead of forcing users to rebuild or delete their index.
+            columns = {row[1] for row in self._conn.execute("PRAGMA table_info(notes)").fetchall()}
+            if "char_count" not in columns:
+                self._conn.execute("ALTER TABLE notes ADD COLUMN char_count INTEGER NOT NULL DEFAULT 0")
+            if "word_count" not in columns:
+                self._conn.execute("ALTER TABLE notes ADD COLUMN word_count INTEGER NOT NULL DEFAULT 0")
             self._conn.commit()
 
     def close(self):
@@ -107,10 +116,12 @@ class Database:
     def upsert_note(self, path: str, title: str, content_hash: str, mtime_ns: int, size: int, body: str, headings: list[dict]):
         now = int(time.time())
         with self._lock:
+            chars = len(body)
+            words = len(body.split())
             self._conn.execute(
-                "INSERT INTO notes(path,title,content_hash,mtime_ns,size_bytes,last_indexed_at) VALUES(?,?,?,?,?,?) "
-                "ON CONFLICT(path) DO UPDATE SET title=excluded.title,content_hash=excluded.content_hash,mtime_ns=excluded.mtime_ns,size_bytes=excluded.size_bytes,last_indexed_at=excluded.last_indexed_at",
-                (path, title, content_hash, mtime_ns, size, now),
+                "INSERT INTO notes(path,title,content_hash,mtime_ns,size_bytes,char_count,word_count,last_indexed_at) VALUES(?,?,?,?,?,?,?,?) "
+                "ON CONFLICT(path) DO UPDATE SET title=excluded.title,content_hash=excluded.content_hash,mtime_ns=excluded.mtime_ns,size_bytes=excluded.size_bytes,char_count=excluded.char_count,word_count=excluded.word_count,last_indexed_at=excluded.last_indexed_at",
+                (path, title, content_hash, mtime_ns, size, chars, words, now),
             )
             self._conn.execute("DELETE FROM headings WHERE note_path=?", (path,))
             for h in headings:

@@ -72,38 +72,27 @@ async function broadcastPrompt(msg, sender) {
   const sourceTabId = sender?.tab?.id || null;
   const tabs = await discoverProviderTabs();
   const targets = tabs.filter(tab => tab.tabId !== sourceTabId && (msg.target === 'all' || tab.provider === msg.target));
-  // Provider tabs are independent. Send them concurrently so long Brain contexts
-  // are not serialized tab-by-tab.
-  const results = await Promise.all(targets.map(async tab => {
+  const results = [];
+  for (const tab of targets) {
     try {
       const result = await chrome.tabs.sendMessage(tab.tabId, {
         type: 'CAIRN_UI_REMOTE_COMPOSE',
         text: msg.text || '',
         paths: msg.paths || [],
         attach: !!msg.attach,
-        transferFiles: msg.transferFiles || [],
-        send: !!msg.send,
         sourceProvider: msg.sourceProvider || '',
-        syncAttachments: msg.syncAttachments !== false,
       });
-      return { tabId: tab.tabId, provider: tab.provider, label: tab.label, ok: !!result?.ok, result };
+      results.push({ tabId: tab.tabId, provider: tab.provider, label: tab.label, ok: !!result?.ok, result });
     } catch (error) {
-      return { tabId: tab.tabId, provider: tab.provider, label: tab.label, ok: false, error: String(error?.message || error) };
+      results.push({ tabId: tab.tabId, provider: tab.provider, label: tab.label, ok: false, error: String(error?.message || error) });
     }
-  }));
+  }
   return {
     matched: targets.length,
-    synced: results.filter(x => x.ok && x.result?.ok).length,
-    inserted: results.filter(x => x.ok && x.result?.inserted && x.result?.hasText !== false).length,
-    sent: results.filter(x => x.ok && x.result?.sent).length,
+    inserted: results.filter(x => x.ok && x.result?.inserted).length,
     attachedFiles: results.reduce((sum, x) => sum + (Number(x.result?.attachedCount) || 0), 0),
-    transferredFiles: results.reduce((sum, x) => sum + (Number(x.result?.transferredCount) || 0), 0),
-    detachedFiles: results.reduce((sum, x) => sum + (Number(x.result?.detachedCount) || 0), 0),
-    detachFailures: results.filter(x => x.result && x.result.attachmentStateOk === false).length,
-    remainingAttachments: results.flatMap(x => (x.result?.remainingAttachments || []).map(name => `${x.label || x.provider}: ${name}`)),
-    attachmentFailures: results.filter(x => x.result?.attachRequested && !x.result?.attachedOk).length,
-    transferFailures: results.filter(x => x.result?.transferRequested && !x.result?.transferredOk).length,
-    failed: results.filter(x => !x.ok || !x.result?.ok).length,
+    attachmentFailures: results.filter(x => x.ok && x.result?.attachRequested && !x.result?.attachedOk).length,
+    failed: results.filter(x => !x.ok || !x.result?.inserted).length,
     results,
   };
 }
@@ -112,149 +101,24 @@ async function broadcastDetach(msg, sender) {
   const sourceTabId = sender?.tab?.id || null;
   const tabs = await discoverProviderTabs();
   const targets = tabs.filter(tab => tab.tabId !== sourceTabId && (msg.target === 'all' || tab.provider === msg.target));
-  const results = await Promise.all(targets.map(async tab => {
+  const results = [];
+  for (const tab of targets) {
     try {
       const result = await chrome.tabs.sendMessage(tab.tabId, {
         type: 'CAIRN_UI_REMOTE_DETACH',
         paths: msg.paths || [],
       });
-      return { tabId: tab.tabId, provider: tab.provider, label: tab.label, ok: !!result?.ok, result };
+      results.push({ tabId: tab.tabId, provider: tab.provider, label: tab.label, ok: !!result?.ok, result });
     } catch (error) {
-      return { tabId: tab.tabId, provider: tab.provider, label: tab.label, ok: false, error: String(error?.message || error) };
+      results.push({ tabId: tab.tabId, provider: tab.provider, label: tab.label, ok: false, error: String(error?.message || error) });
     }
-  }));
+  }
   return {
     matched: targets.length,
     detached: results.reduce((sum, x) => sum + (Number(x.result?.detachedCount) || 0), 0),
     failed: results.filter(x => !x.ok).length,
     results,
   };
-}
-
-async function broadcastClear(msg, sender) {
-  const sourceTabId = sender?.tab?.id || null;
-  const tabs = await discoverProviderTabs();
-  const targets = tabs.filter(tab => tab.tabId !== sourceTabId && (msg.target === 'all' || tab.provider === msg.target));
-  const results = await Promise.all(targets.map(async tab => {
-    try {
-      const result = await chrome.tabs.sendMessage(tab.tabId, { type: 'CAIRN_UI_REMOTE_CLEAR' });
-      return { tabId: tab.tabId, provider: tab.provider, label: tab.label, ok: !!result?.ok, result };
-    } catch (error) {
-      return { tabId: tab.tabId, provider: tab.provider, label: tab.label, ok: false, error: String(error?.message || error) };
-    }
-  }));
-  return {
-    matched: targets.length,
-    cleared: results.filter(x => x.ok && x.result?.cleared).length,
-    detached: results.reduce((sum, x) => sum + (Number(x.result?.detachedCount) || 0), 0),
-    failed: results.filter(x => !x.ok).length,
-    results,
-  };
-}
-
-async function broadcastSend(msg, sender) {
-  const sourceTabId = sender?.tab?.id || null;
-  const tabs = await discoverProviderTabs();
-  const targets = tabs.filter(tab => tab.tabId !== sourceTabId && (msg.target === 'all' || tab.provider === msg.target));
-  const results = await Promise.all(targets.map(async tab => {
-    try {
-      const result = await chrome.tabs.sendMessage(tab.tabId, { type: 'CAIRN_UI_REMOTE_SEND' });
-      return { tabId: tab.tabId, provider: tab.provider, label: tab.label, ok: !!result?.ok, result };
-    } catch (error) {
-      return { tabId: tab.tabId, provider: tab.provider, label: tab.label, ok: false, error: String(error?.message || error) };
-    }
-  }));
-  return { matched: targets.length, sent: results.filter(x => x.ok && x.result?.sent).length, failed: results.filter(x => !x.ok || !x.result?.sent).length, results };
-}
-
-async function refreshProviderTabs(msg, sender) {
-  const sourceTabId = sender?.tab?.id || null;
-  const sourceWindowId = sender?.tab?.windowId ?? null;
-  const tabs = await discoverProviderTabs();
-  const targets = tabs.filter(tab => tab.tabId !== sourceTabId && (msg.target === 'all' || tab.provider === msg.target));
-  let reloaded = 0;
-  await Promise.all(targets.map(async tab => {
-    try {
-      const native = await chrome.tabs.get(tab.tabId);
-      if (sourceWindowId !== null && native.windowId !== sourceWindowId) return;
-      await chrome.tabs.reload(tab.tabId);
-      reloaded += 1;
-    } catch (_) {}
-  }));
-  return { matched: targets.length, reloaded };
-}
-
-async function captureProviderChats(msg, sender) {
-  const sourceTabId = sender?.tab?.id || null;
-  const tabs = await discoverProviderTabs();
-  const targets = tabs.filter(tab => {
-    if (msg.target === 'all') return true;
-    if (msg.target === 'current') return tab.tabId === sourceTabId;
-    return tab.provider === msg.target;
-  });
-  const captures = [];
-  await Promise.all(targets.map(async tab => {
-    try {
-      const result = await chrome.tabs.sendMessage(tab.tabId, { type: 'CAIRN_UI_CAPTURE_CONVERSATION', mode: msg.mode || 'complete' });
-      if (result?.ok && result?.capture) captures.push({ ...result.capture, tabId: tab.tabId, provider: result.capture.provider || tab.label });
-    } catch (_) {}
-  }));
-  captures.sort((a,b)=>(a.provider||'').localeCompare(b.provider||'') || a.tabId-b.tabId);
-  return { matched: targets.length, captures };
-}
-
-async function broadcastReplyNotice(msg, sender) {
-  // Reply completion notices use two paths:
-  // 1) direct tab messaging for immediate delivery;
-  // 2) a storage-backed event bus for inactive/frozen tabs that can miss a
-  //    one-shot message. Content scripts deduplicate both paths by event id.
-  const windowId = sender?.tab?.windowId ?? null;
-  const event = {
-    id: `reply-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
-    provider: msg.provider || '',
-    label: msg.label || msg.provider || 'AI',
-    windowId,
-    ts: Date.now()
-  };
-  try { await chrome.storage.local.set({ cairnReplyEvent: event }); } catch (_) {}
-
-  const tabs = await discoverProviderTabs();
-  const targets = [];
-  for (const tab of tabs) {
-    try {
-      const native = await chrome.tabs.get(tab.tabId);
-      if (windowId !== null && native.windowId !== windowId) continue;
-      targets.push(tab);
-    } catch (_) {}
-  }
-  let delivered = 0;
-  await Promise.all(targets.map(async tab => {
-    try {
-      await chrome.tabs.sendMessage(tab.tabId, {
-        type:'CAIRN_UI_PROVIDER_REPLY_DONE',
-        provider:event.provider,
-        label:event.label,
-        eventId:event.id
-      });
-      delivered += 1;
-    } catch (_) {}
-  }));
-  // Keep an active-tab fallback for supported pages that were not returned by
-  // provider discovery. The storage event still remains the durable fallback.
-  if (!delivered) {
-    const active = await chrome.tabs.query({ active: true, currentWindow: true });
-    for (const tab of active) {
-      if (!tab?.id) continue;
-      try {
-        await chrome.tabs.sendMessage(tab.id, {
-          type:'CAIRN_UI_PROVIDER_REPLY_DONE', provider:event.provider,
-          label:event.label, eventId:event.id
-        });
-        delivered += 1;
-      } catch (_) {}
-    }
-  }
-  return { delivered, eventId:event.id };
 }
 
 async function handleMessage(msg) {
@@ -341,12 +205,6 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
       .catch(error => sendResponse({ ok: false, error: String(error?.message || error) }));
     return true;
   }
-  if (msg.type === 'CAIRN_REFRESH_PROVIDER_TABS') {
-    refreshProviderTabs(msg, sender)
-      .then(result => sendResponse({ ok: true, result }))
-      .catch(error => sendResponse({ ok: false, error: String(error?.message || error) }));
-    return true;
-  }
   if (msg.type === 'CAIRN_BROADCAST_PROMPT') {
     broadcastPrompt(msg, sender)
       .then(result => sendResponse({ ok: true, result }))
@@ -358,18 +216,6 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
       .then(result => sendResponse({ ok: true, result }))
       .catch(error => sendResponse({ ok: false, error: String(error?.message || error) }));
     return true;
-  }
-  if (msg.type === 'CAIRN_BROADCAST_CLEAR') {
-    broadcastClear(msg, sender).then(result => sendResponse({ ok: true, result })).catch(error => sendResponse({ ok: false, error: String(error?.message || error) })); return true;
-  }
-  if (msg.type === 'CAIRN_BROADCAST_SEND') {
-    broadcastSend(msg, sender).then(result => sendResponse({ ok: true, result })).catch(error => sendResponse({ ok: false, error: String(error?.message || error) })); return true;
-  }
-  if (msg.type === 'CAIRN_CAPTURE_PROVIDER_CHATS') {
-    captureProviderChats(msg, sender).then(result => sendResponse({ ok: true, result })).catch(error => sendResponse({ ok: false, error: String(error?.message || error) })); return true;
-  }
-  if (msg.type === 'CAIRN_PROVIDER_REPLY_DONE') {
-    broadcastReplyNotice(msg, sender).then(result => sendResponse({ ok: true, result })).catch(error => sendResponse({ ok: false, error: String(error?.message || error) })); return true;
   }
   handleMessage(msg)
     .then(result => sendResponse({ ok: true, result }))

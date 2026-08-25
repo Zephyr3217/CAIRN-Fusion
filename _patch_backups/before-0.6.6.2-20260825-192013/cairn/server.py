@@ -5,7 +5,6 @@ from pathlib import Path
 from urllib.parse import quote
 from fastapi import FastAPI, Header, HTTPException, Request
 from fastapi.responses import FileResponse, StreamingResponse
-from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from . import __version__
@@ -59,7 +58,6 @@ async def lifespan(app: FastAPI):
     rt.db.close()
 
 app = FastAPI(title='CAIRN Fusion', version=__version__, lifespan=lifespan)
-app.add_middleware(GZipMiddleware, minimum_size=1024, compresslevel=5)
 STATIC = Path(__file__).parent/'static'
 app.mount('/static', StaticFiles(directory=STATIC), name='static')
 
@@ -117,7 +115,7 @@ async def refresh_vault(request: Request, x_cairn_token: str|None=Header(None)):
 
 @app.get('/api/notes')
 async def notes(request: Request, x_cairn_token: str|None=Header(None)):
-    await auth(x_cairn_token, request); return rt.db.query('SELECT path,title,content_hash,mtime_ns,size_bytes,char_count AS chars,word_count AS words FROM notes ORDER BY path')
+    await auth(x_cairn_token, request); return rt.db.query('SELECT path,title,content_hash,mtime_ns,size_bytes FROM notes ORDER BY path')
 
 @app.get('/api/folders')
 async def folders(request: Request, x_cairn_token: str|None=Header(None)):
@@ -150,7 +148,7 @@ async def read_note(path: str, request: Request, x_cairn_token: str|None=Header(
     if not rt.caps.allowed(client_id,'read',path): raise HTTPException(403,'CAPABILITY_DENIED')
     try:
         data,digest=rt.vault.read(path); text=data.decode('utf-8')
-        return {"path":path,"content_hash":digest,"content":text,"chars":len(text),"words":len(text.split())}
+        return {"path":path,"content_hash":digest,"content":text,"chars":len(text)}
     except Exception as e: raise HTTPException(400,str(e))
 
 @app.post('/api/context/build')

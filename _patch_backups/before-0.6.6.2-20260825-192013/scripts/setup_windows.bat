@@ -3,7 +3,7 @@ setlocal EnableExtensions
 cd /d "%~dp0\.."
 
 echo ============================================
-echo CAIRN Fusion 0.6.6.7 - Windows Setup
+echo CAIRN Fusion 0.6.6 - Windows Setup
 echo ============================================
 echo Required: Windows 10/11, Python 3.11+ with pip + venv.
 echo Browser extension: Chrome, Brave, or Edge (manual Load unpacked).

@@ -39,19 +39,6 @@ class ContextTests(unittest.TestCase):
         with self.assertRaises(ContextError):
             build_context(self.vault, ['x.txt'])
 
-    def test_large_explicit_context_is_not_truncated_by_default(self):
-        body = 'A' * 300_000
-        self.vault.create('Large.md', 'Large', body)
-        bundle = build_context(self.vault, ['Large.md'])
-        self.assertGreater(bundle['total_chars'], 250_000)
-        self.assertIn(body[:1000], bundle['text'])
-        self.assertTrue(bundle['text'].endswith('<<< END CAIRN VAULT MEMORY >>>'))
-
-    def test_optional_context_limit_can_still_be_requested(self):
-        self.vault.create('Limit.md', 'Limit', 'x' * 100)
-        with self.assertRaises(ContextError):
-            build_context(self.vault, ['Limit.md'], max_chars=10)
-
 
 if __name__ == '__main__':
     unittest.main()

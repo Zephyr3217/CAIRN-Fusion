@@ -1,4 +1,4 @@
-CAIRN Fusion 0.6.6.7 — Installation Requirements
+CAIRN Fusion 0.6.6 — Installation Requirements
 
 REQUIRED
 - Windows 10 or Windows 11

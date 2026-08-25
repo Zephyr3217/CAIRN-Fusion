@@ -1,4 +1,4 @@
-#cairn-floating-save,#cairn-capture-panel,#cairn-capture-panel *,#cairn-assistant-button,#cairn-multi-button,#cairn-ref-chip,#cairn-chat-button{box-sizing:border-box}
+#cairn-floating-save,#cairn-capture-panel,#cairn-capture-panel *,#cairn-assistant-button,#cairn-ref-chip,#cairn-chat-button{box-sizing:border-box}
 #cairn-floating-save{position:fixed;right:18px;bottom:18px;z-index:2147483646;padding:9px 14px;border:0;border-radius:999px;background:#1f2937;color:#fff;font:600 13px/1.2 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;box-shadow:0 5px 20px rgba(0,0,0,.28);cursor:pointer;display:none}
 #cairn-assistant-button,#cairn-ref-chip{position:fixed;z-index:2147483646;padding:9px 14px;border:0;border-radius:999px;background:#111827;color:#fff;font:600 13px/1.2 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;box-shadow:0 5px 20px rgba(0,0,0,.28);cursor:pointer}
 #cairn-assistant-button{right:112px;bottom:18px;background:#111827}#cairn-ref-chip{left:18px;bottom:18px;background:#4f46e5}
@@ -93,7 +93,7 @@
 /* Fusion 0.6.3 — unified Brain/Agent/Help + stable Context Space save */
 #cairn-assistant-button{position:fixed;z-index:2147483646;padding:9px 14px;border:0;border-radius:999px;color:#fff;font:600 13px/1.2 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;box-shadow:0 5px 20px rgba(0,0,0,.28);cursor:pointer}
 #cairn-capture-panel.cairn-assistant-mode{width:min(390px,calc(100vw - 24px));height:min(590px,calc(100dvh - 72px));}
-#cairn-capture-panel .cairn-assistant-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin:0 0 8px;flex:0 0 auto}
+#cairn-capture-panel .cairn-assistant-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:0 0 8px;flex:0 0 auto}
 #cairn-capture-panel .cairn-assistant-tab{border:1px solid #d1d5db;border-radius:8px;background:#fff;color:#374151;padding:6px 8px;font:600 11px/1.2 system-ui;cursor:pointer}
 #cairn-capture-panel .cairn-assistant-tab.active{background:#1f2937;border-color:#1f2937;color:#fff}
 #cairn-capture-panel .cairn-assistant-tab.disabled{opacity:.45;cursor:not-allowed}
@@ -119,166 +119,10 @@
 #cairn-capture-panel .cairn-broadcast-target select{padding:6px 7px;font-size:10px}
 #cairn-capture-panel .cairn-broadcast-toggles{display:grid;grid-template-columns:1fr 1fr;gap:4px 8px;margin-top:5px}
 #cairn-capture-panel label.cairn-broadcast-toggle{display:flex;align-items:center;gap:4px;margin:0;font-weight:500;color:#4b5563;font-size:9px;line-height:1.2;min-width:0}
-#cairn-capture-panel label.cairn-broadcast-toggle input{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;margin:0;padding:0}
-#cairn-capture-panel .cairn-toggle-mark{display:inline-grid;place-items:center;flex:0 0 16px;width:16px;height:16px;border:1.5px solid #9ca3af;border-radius:5px;background:#fff;color:transparent;font:800 11px/1 system-ui;transition:background .12s ease,border-color .12s ease,color .12s ease}
-#cairn-capture-panel label.cairn-broadcast-toggle input:checked + .cairn-toggle-mark{background:#1f2937;border-color:#1f2937;color:#fff}
-#cairn-capture-panel label.cairn-broadcast-toggle:has(input:checked){color:#111827;font-weight:700}
+#cairn-capture-panel label.cairn-broadcast-toggle input{width:12px;height:12px;margin:0;padding:0;flex:0 0 auto}
 #cairn-capture-panel label.cairn-broadcast-toggle span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #cairn-capture-panel .cairn-broadcast-actions{display:grid;grid-template-columns:1fr auto;gap:5px;margin-top:6px}
 #cairn-capture-panel .cairn-broadcast-actions button{padding:6px 7px;font-size:9.5px;min-width:0;white-space:nowrap}
 #cairn-capture-panel .cairn-broadcast-meta{margin-top:4px;color:#6b7280;font-size:8.5px;line-height:1.25;overflow-wrap:anywhere}
 #cairn-capture-panel.cairn-brain-mode .cairn-footer{grid-template-columns:repeat(4,minmax(0,1fr))}
 @media(max-width:420px){#cairn-capture-panel .cairn-broadcast-toggles{grid-template-columns:1fr}#cairn-capture-panel.cairn-brain-mode .cairn-footer{grid-template-columns:1fr 1fr}}
-
-/* Fusion 0.6.6.1 — separate Multi-Provider tab + visible option checks */
-#cairn-capture-panel .cairn-assistant-tab{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#cairn-capture-panel .cairn-broadcast-box{margin-top:2px}
-
-/* Fusion 0.6.6.2 — draft synchronization, send-all, and three-option transfer UI */
-#cairn-capture-panel .cairn-broadcast-actions-3{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
-#cairn-capture-panel .cairn-broadcast-actions-3 .cairn-secondary{grid-column:1/-1}
-#cairn-capture-panel .cairn-send-all{font-weight:800}
-#cairn-capture-panel .cairn-broadcast-toggles{grid-template-columns:1fr 1fr}
-#cairn-capture-panel .cairn-broadcast-toggles label:last-child{grid-column:1/-1}
-@media(max-width:420px){#cairn-capture-panel .cairn-broadcast-actions-3{grid-template-columns:1fr}#cairn-capture-panel .cairn-broadcast-actions-3 .cairn-secondary{grid-column:auto}}
-
-/* Fusion 0.6.6.4 — integrated Provider Hub, remote Save Chat, reply toasts */
-#cairn-capture-panel .cairn-assistant-tabs{grid-template-columns:repeat(4,minmax(0,1fr))}
-#cairn-capture-panel .cairn-current-attachments{margin:6px 0 2px;padding:7px 8px;border:1px solid #dbe3ef;border-radius:8px;background:#fff;display:grid;grid-template-columns:auto minmax(0,1fr);gap:7px;align-items:start;font-size:9px;line-height:1.35;color:#334155}
-#cairn-capture-panel .cairn-current-attachments b{font-size:9px;color:#111827;white-space:nowrap}
-#cairn-capture-panel .cairn-current-attachments span{overflow-wrap:anywhere}
-#cairn-capture-panel .cairn-current-attachments.is-empty span{color:#94a3b8}
-#cairn-capture-panel .cairn-broadcast-toggles{grid-template-columns:1fr 1fr}
-#cairn-capture-panel .cairn-broadcast-actions-3{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
-#cairn-capture-panel .cairn-broadcast-actions-3 .cairn-secondary{grid-column:1/-1}
-#cairn-capture-panel .cairn-send-all{font-weight:800}
-#cairn-reply-toast-host{position:fixed;right:20px;top:20px;z-index:2147483647;display:flex;flex-direction:column;gap:8px;pointer-events:none}
-.cairn-reply-toast{max-width:260px;padding:10px 14px;border-radius:12px;background:#111827;color:#fff;font:700 12px/1.25 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.3);opacity:0;transform:translateY(-8px) scale(.98);transition:opacity .16s ease,transform .16s ease}
-.cairn-reply-toast.show{opacity:1;transform:translateY(0) scale(1)}
-/* Only CAIRN + Save Chat remain as persistent floating controls. Multi-Provider is a CAIRN tab again. */
-#cairn-floating-save{bottom:60px}
-@media(max-width:560px){#cairn-capture-panel .cairn-assistant-tabs{grid-template-columns:repeat(4,minmax(0,1fr))}#cairn-capture-panel .cairn-broadcast-actions-3{grid-template-columns:1fr}#cairn-capture-panel .cairn-broadcast-actions-3 .cairn-secondary{grid-column:auto}}
-
-
-/* Fusion 0.6.6.4 — compact idle launcher dock */
-#cairn-launcher-dock{
-  position:fixed;
-  right:18px;
-  bottom:18px;
-  z-index:2147483646;
-  display:flex;
-  gap:6px;
-  align-items:center;
-}
-#cairn-launcher-dock #cairn-assistant-button,
-#cairn-launcher-dock #cairn-chat-button{
-  position:relative;
-  right:auto;
-  bottom:auto;
-  min-width:42px;
-  max-width:42px;
-  height:38px;
-  padding:9px 0;
-  overflow:hidden;
-  white-space:nowrap;
-  color:transparent;
-  transition:max-width .18s ease,padding .18s ease,box-shadow .18s ease,transform .18s ease;
-}
-#cairn-launcher-dock #cairn-assistant-button::after,
-#cairn-launcher-dock #cairn-chat-button::after{
-  content:attr(data-short);
-  position:absolute;
-  inset:0;
-  display:grid;
-  place-items:center;
-  color:#fff;
-  font:800 12px/1 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-}
-#cairn-launcher-dock:hover #cairn-assistant-button,
-#cairn-launcher-dock:hover #cairn-chat-button,
-#cairn-launcher-dock.is-active #cairn-assistant-button,
-#cairn-launcher-dock.is-active #cairn-chat-button,
-#cairn-launcher-dock #cairn-assistant-button:focus-visible,
-#cairn-launcher-dock #cairn-chat-button:focus-visible{
-  min-width:0;
-  max-width:112px;
-  padding:9px 14px;
-  color:#fff;
-}
-#cairn-launcher-dock:hover #cairn-assistant-button::after,
-#cairn-launcher-dock:hover #cairn-chat-button::after,
-#cairn-launcher-dock.is-active #cairn-assistant-button::after,
-#cairn-launcher-dock.is-active #cairn-chat-button::after,
-#cairn-launcher-dock #cairn-assistant-button:focus-visible::after,
-#cairn-launcher-dock #cairn-chat-button:focus-visible::after{display:none}
-#cairn-capture-panel .cairn-inline-limit-note{
-  margin:6px 0;
-  padding:7px 8px;
-  border-radius:8px;
-  border:1px solid #f59e0b;
-  background:#fffbeb;
-  color:#92400e;
-  font-size:9px;
-  line-height:1.35;
-}
-@media(max-width:560px){
-  #cairn-launcher-dock{right:8px;bottom:8px}
-}
-
-/* Fusion 0.6.6.5 — automatic sync, note metrics, centered reply notices, tab tutorials */
-#cairn-reply-toast-host{
-  position:fixed;
-  inset:0;
-  z-index:2147483647;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  pointer-events:none;
-}
-.cairn-reply-toast{
-  max-width:min(560px,calc(100vw - 36px));
-  padding:14px 22px;
-  border-radius:14px;
-  background:rgba(185,28,28,.88);
-  color:#fff;
-  font:800 18px/1.3 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  text-align:center;
-  box-shadow:0 12px 38px rgba(0,0,0,.30);
-  border:1px solid rgba(255,255,255,.22);
-  backdrop-filter:blur(8px);
-  opacity:0;
-  transform:translateY(8px) scale(.97);
-  transition:opacity .16s ease,transform .16s ease;
-}
-.cairn-reply-toast.show{opacity:1;transform:translateY(0) scale(1)}
-#cairn-capture-panel .cairn-multi-rule{margin:6px 0 2px;padding:7px 8px;border-radius:8px;background:#eef2ff;border:1px solid #c7d2fe;color:#3730a3;font-size:9px;line-height:1.35}
-#cairn-capture-panel .cairn-tab-help{margin-top:7px;padding:7px 9px;font-size:10px;flex:0 0 auto}
-#cairn-capture-panel .cairn-tab-tutorial-overlay{position:absolute;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:12px;background:rgba(15,23,42,.38);backdrop-filter:blur(1px)}
-#cairn-capture-panel .cairn-tab-tutorial-card{width:100%;max-height:92%;display:flex;flex-direction:column;overflow:hidden;border:1px solid #d1d5db;border-radius:13px;background:#fff;box-shadow:0 18px 55px rgba(0,0,0,.28)}
-#cairn-capture-panel .cairn-tab-tutorial-head{display:flex;align-items:center;justify-content:space-between;padding:10px 11px;border-bottom:1px solid #e5e7eb}
-#cairn-capture-panel .cairn-tab-tutorial-content{overflow-y:auto;padding:10px;display:grid;gap:7px}
-#cairn-capture-panel .cairn-tab-tutorial-content section{padding:8px;border:1px solid #e5e7eb;border-radius:9px;background:#f9fafb}
-#cairn-capture-panel .cairn-tab-tutorial-content section b{display:block;font-size:11px;color:#111827}
-#cairn-capture-panel .cairn-tab-tutorial-content section p{margin:3px 0 0;font-size:10px;line-height:1.4;color:#4b5563}
-#cairn-capture-panel .cairn-brain-toolbar{display:grid;grid-template-columns:minmax(0,1fr) minmax(105px,.6fr) auto;gap:5px;align-items:center;flex:0 0 auto}
-#cairn-capture-panel .cairn-brain-toolbar input,#cairn-capture-panel .cairn-brain-toolbar select{padding:7px 8px;font-size:10px}
-#cairn-capture-panel .cairn-note-side{display:grid;gap:4px;justify-items:end;align-items:start;min-width:112px}
-#cairn-capture-panel .cairn-note-size{font-size:8.5px;line-height:1.2;color:#64748b;text-align:right;white-space:nowrap}
-#cairn-capture-panel .cairn-note-size.is-large{color:#b45309;font-weight:800}
-#cairn-capture-panel .cairn-note-sort{min-width:0}
-@media(max-width:560px){
-  .cairn-reply-toast{font-size:16px;max-width:calc(100vw - 24px)}
-  #cairn-capture-panel .cairn-brain-toolbar{grid-template-columns:minmax(0,1fr) auto}
-  #cairn-capture-panel .cairn-brain-toolbar .cairn-note-sort{grid-column:1/-1;grid-row:2}
-  #cairn-capture-panel .cairn-note-side{min-width:100px}
-}
-
-/* Fusion 0.6.6.6 — real-time attachment readiness + per-file source removal */
-#cairn-capture-panel .cairn-current-attachment-list{display:grid;gap:4px;min-width:0;flex:1}
-#cairn-capture-panel .cairn-current-attachment-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;align-items:center;padding:4px 5px;border-radius:7px;background:#f8fafc;border:1px solid #e5e7eb}
-#cairn-capture-panel .cairn-current-attachment-item span{min-width:0;overflow-wrap:anywhere;font-size:8.5px;line-height:1.25;color:#475569}
-#cairn-capture-panel .cairn-attachment-remove{border:1px solid #fecaca;background:#fff;color:#b91c1c;border-radius:6px;padding:3px 6px;font-size:8px;font-weight:700;cursor:pointer}
-#cairn-capture-panel .cairn-attachment-remove:hover{background:#fef2f2}
-#cairn-capture-panel .cairn-attachment-remove:disabled{opacity:.55;cursor:default}

@@ -1,105 +1,11 @@
-CAIRN Fusion 0.6.5
+CAIRN Fusion 0.6.6.7 — NOTIFICATION REALTIME
 
-REFINEMENT PASS (no new user-facing features — see CHANGELOG.md for full detail)
-- Fixed: folder deletion left phantom notes in the SQLite index (db.py)
-- Fixed: files created in the same instant as a brand-new folder could be missed
-  by the watcher due to a real recursive-watch race (watcher.py) — reproduced
-  live, not just theorized, before and after the fix
-- Fixed: stale Inbox-is-a-single-file install instructions
-- Security: constant-time Bridge token comparison; Bridge token no longer sits
-  in the /events URL (short-lived ticket instead); config.json now chmod 600
-  on POSIX
-- Performance: every save previously broadcast 3 live-update events instead of
-  1 (the atomic write's own temp file was visible to the watcher); fixed and
-  confirmed via a live SSE capture
-- Internal: unified version string (was inconsistent across 4 files); migrated
-  off deprecated FastAPI on_event handlers
-- Tests: 21 -> 47, all passing; new coverage for watcher rename/delete/folder-
-  delete, path traversal/symlink/capability regression, SQLite rebuildability,
-  the new SSE ticket mechanism, and more Agent intent phrasing
+Status: TESTED BUILD
 
-TEST RESULT IN THIS RELEASE
-47 tests passed, 0 failed.
-
-CAIRN Fusion 0.6.4
-
-IMPLEMENTED AND TESTED
-- Connection-aware browser controls: hidden unless local service + Bridge token are valid.
-- 3-second heartbeat hides controls if CAIRN disconnects and restores them when it reconnects.
-
-CAIRN Fusion Preview 0.6.3
-
-CAIRN FUSION PREVIEW 0.6 BUILD STATUS
-=====================================
-
-IMPLEMENTED AND TESTED (automated/backend)
-- all prior Markdown safety, watcher, SQLite, Brain, Context Space and Undo core
-- natural-language Agent aliases (including "history" / "show history")
-- vault-aware Agent search
-- explicit .md note reading through Agent
-- note listing through Agent
-- optional local Ollama auto-detection/generation module
-- Agent acronym expansion for common queries such as SVM/RF/DT/ML
-- server/API smoke path for Agent history/read/search
-
-IMPLEMENTED + JAVASCRIPT SYNTAX-CHECKED, NEEDS REAL BROWSER FIELD TEST
-- persistent Save Chat button
-- Complete Chat extraction for ChatGPT / Claude / Gemini
-- Latest AI Reply extraction
-- extension popup Save Complete Chat action
-- page context-menu Save Complete Chat action
-- Brain per-note Open .md viewer
-- best-effort Attach .md to AI chat
-- Download .md fallback
-- dashboard Help dialog
-- extension Dashboard + Help shortcut
-- dashboard Open .md viewer
-- richer Agent result display
-
-PRESERVED
-- Markdown is source of truth
-- SQLite index/history layer
-- live watcher
-- hash conflict protection
-- atomic writes
-- safe heading targeting
-- Bridge + Brain
-- Context Spaces / Threads
-- dated semantic updates
-- Patch Heading Body
-- History/Undo
-- Open in Obsidian / Explorer
-- browser-first operation; Obsidian need not be open
-
-NOT IMPLEMENTED YET
-- guaranteed file attachment on every AI provider (site-controlled DOM limitation)
-- robust automated DOM tests against live ChatGPT/Claude/Gemini
-- polished Ollama model selector/settings UI
-- external AI provider APIs
-- image/PDF asset pipeline
-- friendly capability-grant management UI
-- pairing-code flow
-- automatic pre-Send interception
-- packaged Windows .exe/installer
-
-TEST RESULT IN BUILD ENVIRONMENT
-21 tests passed.
-Agent API smoke passed: show history -> read [Note.md] -> find notes about SVM.
-JavaScript syntax checks passed for content.js, background.js, popup.js, dashboard app.js.
-
-0.6 UX / INBOX CHANGES
-- Save to Inbox creates a NEW .md note in CAIRN/Inbox/ every time
-- duplicate titles receive (2), (3), ... suffixes; nothing is overwritten
-- Brain panel compacted and horizontal scrolling removed
-- Active Thread removed from popup/everyday UI
-- redundant Brain / .md popup button removed; Brain remains on-page + shortcut
-- Context Spaces remain available
-
-0.6.2: Context Space dropdown live-refresh after save; manual refresh updates notes + spaces; valid Bridge token connection automatically reloads the active page.
-- Dashboard Quick Capture UI removed as redundant; browser selection save, Save Complete Chat/Latest Reply, and Brain remain the primary workflows.
-
-0.6.3 UI/Setup:
-- unified Brain + Agent + Help browser UI beside Save Chat
-- in-panel Context Space naming (no native prompt / viewport jump)
-- browser tutorial + troubleshooting
-- Windows setup prerequisite checks for Python 3.11+, pip, venv, and package imports
+Focus:
+- reliable cross-tab provider reply notifications
+- storage-backed fallback event bus + direct tab fast path
+- event-id deduplication
+- faster reply completion detection
+- centered translucent red 18px notice, ~3.6 second duration
+- preserves 0.6.6.6 real-time attachment sync and Save Chat naming

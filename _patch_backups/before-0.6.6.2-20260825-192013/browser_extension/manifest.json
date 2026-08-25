@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "CAIRN Fusion Bridge + Brain",
-  "version": "0.6.6.7",
-  "description": "CAIRN Fusion 0.6.6.7: reliable cross-tab reply notifications with a storage-backed event bus, faster reply detection, centered translucent red notices, plus real-time attachment sync and provider workflows.",
+  "version": "0.6.6.1",
+  "description": "CAIRN Fusion 0.6.6.1: separate Multi-Provider tab, cross-provider composer fixes, visible option checks, detach-all, Brain, Agent, Save Chat, and local Bridge UI.",
   "permissions": [
     "storage",
     "contextMenus",

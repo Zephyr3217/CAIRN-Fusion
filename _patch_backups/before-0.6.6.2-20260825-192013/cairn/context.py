@@ -2,7 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from .vault import VaultManager
 
-MAX_CONTEXT_CHARS: int | None = None
+MAX_CONTEXT_CHARS = 250_000
 
 class ContextError(Exception):
     pass
@@ -12,11 +12,10 @@ class ContextNote:
     path: str
     content_hash: str
     chars: int
-    words: int
     content: str
 
 
-def build_context(vault: VaultManager, paths: list[str], max_chars: int | None = MAX_CONTEXT_CHARS) -> dict:
+def build_context(vault: VaultManager, paths: list[str], max_chars: int = MAX_CONTEXT_CHARS) -> dict:
     """Build an explicit, inspectable context bundle from user-selected Markdown notes.
 
     Markdown files remain the source of truth. This function only reads the exact
@@ -44,9 +43,9 @@ def build_context(vault: VaultManager, paths: list[str], max_chars: int | None =
             raise ContextError(f"NOT_UTF8:{path}") from exc
 
         total += len(content)
-        if max_chars is not None and total > max_chars:
+        if total > max_chars:
             raise ContextError(f"CONTEXT_TOO_LARGE:{max_chars}")
-        notes.append(ContextNote(path, digest, len(content), len(content.split()), content))
+        notes.append(ContextNote(path, digest, len(content), content))
 
     if not notes:
         raise ContextError("NO_CONTEXT_NOTES")
@@ -69,7 +68,7 @@ def build_context(vault: VaultManager, paths: list[str], max_chars: int | None =
         "paths": [n.path for n in notes],
         "total_chars": total,
         "notes": [
-            {"path": n.path, "content_hash": n.content_hash, "chars": n.chars, "words": n.words}
+            {"path": n.path, "content_hash": n.content_hash, "chars": n.chars}
             for n in notes
         ],
         "text": "\n".join(lines),
