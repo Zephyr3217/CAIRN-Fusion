@@ -1,0 +1,111 @@
+#cairn-floating-save,#cairn-capture-panel,#cairn-capture-panel *,#cairn-assistant-button,#cairn-ref-chip,#cairn-chat-button{box-sizing:border-box}
+#cairn-floating-save{position:fixed;right:18px;bottom:18px;z-index:2147483646;padding:9px 14px;border:0;border-radius:999px;background:#1f2937;color:#fff;font:600 13px/1.2 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;box-shadow:0 5px 20px rgba(0,0,0,.28);cursor:pointer;display:none}
+#cairn-assistant-button,#cairn-ref-chip{position:fixed;z-index:2147483646;padding:9px 14px;border:0;border-radius:999px;background:#111827;color:#fff;font:600 13px/1.2 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;box-shadow:0 5px 20px rgba(0,0,0,.28);cursor:pointer}
+#cairn-assistant-button{right:112px;bottom:18px;background:#111827}#cairn-ref-chip{left:18px;bottom:18px;background:#4f46e5}
+#cairn-capture-panel{position:fixed;right:18px;bottom:64px;z-index:2147483647;width:min(410px,calc(100vw - 28px));height:min(700px,calc(100dvh - 84px));overscroll-behavior:contain;display:flex;flex-direction:column;overflow:hidden;border:1px solid rgba(0,0,0,.14);border-radius:16px;background:#fff;color:#111827;box-shadow:0 18px 55px rgba(0,0,0,.28);font:13px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+#cairn-capture-panel .cairn-head{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;padding:13px 14px;border-bottom:1px solid #e5e7eb;background:#fff}
+#cairn-capture-panel .cairn-head-left{display:flex;align-items:center;gap:4px}#cairn-capture-panel .cairn-head strong{font-size:14px}
+#cairn-capture-panel .cairn-close,#cairn-capture-panel .cairn-back{border:0;background:transparent;cursor:pointer;padding:5px 7px;border-radius:7px;color:#374151}#cairn-capture-panel .cairn-close:hover,#cairn-capture-panel .cairn-back:hover{background:#f3f4f6}
+#cairn-capture-panel .cairn-body{min-height:0;flex:1 1 auto;display:flex;flex-direction:column;padding:14px;overflow-y:auto;overflow-x:hidden}
+#cairn-capture-panel .cairn-preview{flex:0 0 auto;background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:9px 10px;max-height:92px;overflow:hidden;white-space:pre-wrap;color:#4b5563;margin-bottom:12px}
+#cairn-capture-panel .cairn-meta{color:#6b7280;font-size:11px;margin:6px 0 10px;overflow-wrap:anywhere}
+#cairn-capture-panel .cairn-actions{display:grid;gap:8px}
+#cairn-capture-panel .cairn-action,#cairn-capture-panel .cairn-primary,#cairn-capture-panel .cairn-secondary,#cairn-capture-panel .cairn-note,#cairn-capture-panel .cairn-heading,#cairn-capture-panel .cairn-mini{border:1px solid #d1d5db;border-radius:10px;background:#fff;color:#111827;cursor:pointer;font:inherit}
+#cairn-capture-panel .cairn-action,#cairn-capture-panel .cairn-primary,#cairn-capture-panel .cairn-secondary,#cairn-capture-panel .cairn-note,#cairn-capture-panel .cairn-heading{width:100%;text-align:left;padding:10px 11px}
+#cairn-capture-panel .cairn-primary{background:#1f2937;border-color:#1f2937;color:#fff;font-weight:700;text-align:center}
+#cairn-capture-panel .cairn-secondary{text-align:center;background:#f3f4f6;font-weight:600}
+#cairn-capture-panel .cairn-mini{padding:8px 10px;white-space:nowrap}
+#cairn-capture-panel .cairn-action:hover,#cairn-capture-panel .cairn-note:hover,#cairn-capture-panel .cairn-heading:hover,#cairn-capture-panel .cairn-mini:hover{background:#f9fafb;border-color:#9ca3af}
+#cairn-capture-panel .cairn-action b{display:block;font-size:13px}#cairn-capture-panel .cairn-action span{display:block;color:#6b7280;font-size:11px;margin-top:2px}
+#cairn-capture-panel label{display:block;font-weight:600;margin:10px 0 4px}#cairn-capture-panel input,#cairn-capture-panel select{width:100%;padding:9px 10px;border:1px solid #d1d5db;border-radius:9px;outline:none;font:inherit;background:#fff;color:#111827;min-width:0}#cairn-capture-panel input:focus,#cairn-capture-panel select:focus{border-color:#6b7280}
+#cairn-capture-panel .cairn-inline{display:flex;gap:6px;align-items:center;flex:0 0 auto}#cairn-capture-panel .cairn-inline input{flex:1}
+#cairn-capture-panel .cairn-list{display:grid;gap:6px;margin-top:9px}#cairn-capture-panel .cairn-scroll-list{min-height:120px;max-height:390px;overflow-y:auto;padding-right:2px}
+#cairn-capture-panel .cairn-note small,#cairn-capture-panel .cairn-heading small{display:block;color:#6b7280;margin-top:2px;overflow-wrap:anywhere}
+#cairn-capture-panel .cairn-status{flex:0 0 auto;margin-top:10px;font-size:12px;color:#4b5563;overflow-wrap:anywhere}#cairn-capture-panel .cairn-status.ok{color:#166534}#cairn-capture-panel .cairn-status.bad{color:#b91c1c}#cairn-capture-panel .cairn-empty{color:#6b7280;padding:10px 0}
+#cairn-capture-panel .cairn-brain-info{flex:0 0 auto;padding:9px 10px;border:1px solid #e5e7eb;border-radius:10px;background:#f9fafb;color:#4b5563;margin-bottom:10px}
+#cairn-capture-panel .cairn-brain-list{flex:1 1 auto;min-height:150px;max-height:none;overflow-y:auto;padding-right:2px}
+#cairn-capture-panel .cairn-brain-note{display:flex;align-items:flex-start;gap:9px;width:100%;padding:9px 10px;margin:0;border:1px solid #d1d5db;border-radius:10px;background:#fff;cursor:pointer;font-weight:400}#cairn-capture-panel .cairn-brain-note:hover{background:#f9fafb}#cairn-capture-panel .cairn-brain-note input{width:auto;margin:2px 0 0}#cairn-capture-panel .cairn-brain-note span{min-width:0}#cairn-capture-panel .cairn-brain-note b,#cairn-capture-panel .cairn-brain-note small{display:block}#cairn-capture-panel .cairn-brain-note small{color:#6b7280;margin-top:2px;overflow-wrap:anywhere}
+#cairn-capture-panel .cairn-footer{position:sticky;bottom:-14px;z-index:5;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px -14px -14px;padding:10px 14px 14px;background:linear-gradient(to bottom,rgba(255,255,255,.94),#fff 22%);border-top:1px solid #e5e7eb;flex:0 0 auto}
+#cairn-capture-panel .cairn-sticky-primary{margin:0}#cairn-capture-panel .cairn-primary:disabled{opacity:.55;cursor:not-allowed}
+#cairn-capture-panel .cairn-space-row{display:grid;grid-template-columns:1fr auto auto;gap:6px;align-items:center;margin-bottom:9px}.cairn-select{min-width:0}
+#cairn-capture-panel .cairn-thread{padding:8px 10px;border-radius:10px;background:#eef2ff;border:1px solid #c7d2fe;color:#3730a3;margin-bottom:8px;font-weight:600}
+#cairn-capture-panel .cairn-agent-log{flex:1 1 auto;min-height:240px;overflow:auto;border:1px solid #e5e7eb;background:#f9fafb;border-radius:10px;padding:8px;display:grid;gap:6px;align-content:start}
+#cairn-capture-panel .cairn-agent-msg{padding:7px 9px;border-radius:9px;background:#fff;border:1px solid #e5e7eb;overflow-wrap:anywhere}#cairn-capture-panel .cairn-agent-msg.user{background:#eef2ff;border-color:#c7d2fe}#cairn-capture-panel .cairn-agent-msg.result{font-size:11px;color:#4b5563}#cairn-capture-panel .cairn-agent-msg.bad{color:#b91c1c}
+#cairn-capture-panel .cairn-agent-row{display:flex;gap:6px;width:100%}#cairn-capture-panel .cairn-agent-row input{flex:1}
+@media(max-width:560px){#cairn-capture-panel{right:8px;bottom:58px;width:calc(100vw - 16px);height:calc(100dvh - 70px)}#cairn-assistant-button{right:105px;bottom:8px}#cairn-ref-chip{left:8px;bottom:8px;max-width:38vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
+/* Fusion 0.5 capture additions retained in 0.6 */
+#cairn-chat-button{position:fixed;right:18px;bottom:18px;z-index:2147483646;padding:9px 14px;border:0;border-radius:999px;background:#0f766e;color:#fff;font:600 13px/1.2 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;box-shadow:0 5px 20px rgba(0,0,0,.28);cursor:pointer}
+#cairn-floating-save{bottom:60px}
+#cairn-capture-panel .cairn-brain-note-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px}
+#cairn-capture-panel .cairn-brain-pick{display:flex;align-items:flex-start;gap:9px;min-width:0;margin:0;font-weight:400;cursor:pointer}
+#cairn-capture-panel .cairn-brain-pick input{width:auto;margin:2px 0 0}
+#cairn-capture-panel .cairn-brain-pick span{min-width:0}
+#cairn-capture-panel .cairn-brain-pick b,#cairn-capture-panel .cairn-brain-pick small{display:block}
+#cairn-capture-panel .cairn-brain-pick small{color:#6b7280;margin-top:2px;overflow-wrap:anywhere}
+#cairn-capture-panel .cairn-note-mini-actions{display:flex;gap:4px;align-items:center}
+#cairn-capture-panel .cairn-note-mini{border:1px solid #d1d5db;background:#fff;color:#374151;border-radius:7px;padding:5px 7px;font:600 10px/1.2 system-ui;cursor:pointer;white-space:nowrap}
+#cairn-capture-panel .cairn-note-mini:hover{background:#f3f4f6}
+#cairn-capture-panel .cairn-md-view{flex:1 1 auto;min-height:240px;margin:0;overflow:auto;white-space:pre-wrap;word-break:break-word;background:#0b1020;color:#e5e7eb;border-radius:10px;padding:12px;font:12px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace}
+#cairn-capture-panel .cairn-footer{grid-template-columns:repeat(auto-fit,minmax(110px,1fr))}
+@media(max-width:560px){#cairn-chat-button{right:8px;bottom:8px}#cairn-floating-save{right:8px;bottom:52px}#cairn-capture-panel .cairn-brain-note-row{grid-template-columns:1fr}.cairn-note-mini-actions{justify-content:flex-end}}
+
+/* Fusion 0.6 compact Brain */
+#cairn-capture-panel.cairn-brain-mode{width:min(365px,calc(100vw - 24px));height:min(545px,calc(100vh - 72px));font-size:12px;line-height:1.35}
+#cairn-capture-panel.cairn-brain-mode .cairn-head{padding:9px 11px}
+#cairn-capture-panel.cairn-brain-mode .cairn-head strong{font-size:13px}
+#cairn-capture-panel.cairn-brain-mode .cairn-body{padding:9px 10px;overflow:hidden}
+#cairn-capture-panel.cairn-brain-mode .cairn-brain-info{padding:6px 8px;margin-bottom:6px;font-size:11px;line-height:1.35}
+#cairn-capture-panel.cairn-brain-mode .cairn-space-row{grid-template-columns:minmax(0,1fr) auto;gap:5px;margin-bottom:6px}
+#cairn-capture-panel.cairn-brain-mode input,#cairn-capture-panel.cairn-brain-mode select{padding:7px 8px;border-radius:8px}
+#cairn-capture-panel.cairn-brain-mode .cairn-inline{gap:5px}
+#cairn-capture-panel.cairn-brain-mode .cairn-meta{font-size:10px;margin:4px 0 6px}
+#cairn-capture-panel.cairn-brain-mode .cairn-brain-list{min-height:0;overflow-y:auto;overflow-x:hidden}
+#cairn-capture-panel.cairn-brain-mode .cairn-brain-note{padding:6px 7px;border-radius:8px;gap:6px;max-width:100%;overflow:hidden}
+#cairn-capture-panel.cairn-brain-mode .cairn-brain-note-row{grid-template-columns:minmax(0,1fr) auto;gap:5px}
+#cairn-capture-panel.cairn-brain-mode .cairn-brain-pick{gap:6px;min-width:0;overflow:hidden}
+#cairn-capture-panel.cairn-brain-mode .cairn-brain-pick b{font-size:11.5px;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#cairn-capture-panel.cairn-brain-mode .cairn-brain-pick small{font-size:9.5px;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#cairn-capture-panel.cairn-brain-mode .cairn-note-mini-actions{gap:3px}
+#cairn-capture-panel.cairn-brain-mode .cairn-note-mini{padding:4px 5px;font-size:9px;border-radius:6px}
+#cairn-capture-panel.cairn-brain-mode .cairn-footer{margin:7px -10px -9px;padding:7px 10px 9px;gap:6px;grid-template-columns:auto 1fr}
+#cairn-capture-panel.cairn-brain-mode .cairn-footer button{padding:7px 8px;font-size:11px}
+#cairn-capture-panel.cairn-brain-mode .cairn-status{font-size:10.5px;margin-top:5px}
+@media(max-width:560px){#cairn-capture-panel.cairn-brain-mode{right:6px;bottom:52px;width:calc(100vw - 12px);height:min(520px,calc(100vh - 60px))}}
+
+/* Fusion 0.6.1 — provider resilience + readable compact Brain */
+#cairn-ui-root{all:initial;position:static;z-index:2147483647}
+#cairn-capture-panel.cairn-brain-mode .cairn-brain-list{display:block;min-height:0;overflow-y:auto;overflow-x:hidden;padding-right:2px}
+#cairn-capture-panel.cairn-brain-mode .cairn-brain-note{min-height:50px;padding:7px 8px;margin:0 0 6px;box-sizing:border-box;overflow:hidden;transition:background .12s ease,border-color .12s ease,box-shadow .12s ease}
+#cairn-capture-panel.cairn-brain-mode .cairn-brain-note:last-child{margin-bottom:0}
+#cairn-capture-panel.cairn-brain-mode .cairn-brain-note.is-selected{background:#f3f4f6;border-color:#6b7280;box-shadow:inset 3px 0 0 #374151}
+#cairn-capture-panel.cairn-brain-mode .cairn-brain-pick{align-items:center;min-height:34px}
+#cairn-capture-panel.cairn-brain-mode .cairn-brain-pick b{font-size:11.5px;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#cairn-capture-panel.cairn-brain-mode .cairn-brain-pick small{font-size:9.5px;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#cairn-capture-panel .cairn-brain-check{position:absolute!important;opacity:0!important;pointer-events:none!important;width:1px!important;height:1px!important}
+#cairn-capture-panel .cairn-check-mark{display:inline-grid;place-items:center;flex:0 0 20px;width:20px;height:20px;border:1.5px solid #9ca3af;border-radius:999px;background:#fff;color:transparent;font:700 12px/1 system-ui;box-sizing:border-box}
+#cairn-capture-panel .cairn-brain-note.is-selected .cairn-check-mark{background:#374151;border-color:#374151;color:#fff}
+#cairn-capture-panel .cairn-brain-note-text{min-width:0;overflow:hidden;display:block}
+#cairn-capture-panel.cairn-brain-mode .cairn-footer{grid-template-columns:auto 1fr 1fr}
+#cairn-capture-panel.cairn-brain-mode .cairn-footer button{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:420px){#cairn-capture-panel.cairn-brain-mode .cairn-footer{grid-template-columns:1fr 1fr}#cairn-capture-panel.cairn-brain-mode .cairn-footer .cairn-secondary:first-child{grid-column:1/-1}}
+
+
+/* Fusion 0.6.3 — unified Brain/Agent/Help + stable Context Space save */
+#cairn-assistant-button{position:fixed;z-index:2147483646;padding:9px 14px;border:0;border-radius:999px;color:#fff;font:600 13px/1.2 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;box-shadow:0 5px 20px rgba(0,0,0,.28);cursor:pointer}
+#cairn-capture-panel.cairn-assistant-mode{width:min(390px,calc(100vw - 24px));height:min(590px,calc(100dvh - 72px));}
+#cairn-capture-panel .cairn-assistant-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:0 0 8px;flex:0 0 auto}
+#cairn-capture-panel .cairn-assistant-tab{border:1px solid #d1d5db;border-radius:8px;background:#fff;color:#374151;padding:6px 8px;font:600 11px/1.2 system-ui;cursor:pointer}
+#cairn-capture-panel .cairn-assistant-tab.active{background:#1f2937;border-color:#1f2937;color:#fff}
+#cairn-capture-panel .cairn-assistant-tab.disabled{opacity:.45;cursor:not-allowed}
+#cairn-capture-panel .cairn-assistant-content{display:flex;flex-direction:column;min-height:0;flex:1 1 auto;overflow:hidden;position:relative}
+#cairn-capture-panel.cairn-assistant-mode .cairn-body{overflow:hidden}
+#cairn-capture-panel .cairn-space-save-dialog{position:absolute;z-index:20;left:14px;right:14px;top:50%;transform:translateY(-50%);padding:12px;border:1px solid #d1d5db;border-radius:12px;background:#fff;box-shadow:0 18px 50px rgba(0,0,0,.24)}
+#cairn-capture-panel .cairn-space-save-dialog strong{display:block;font-size:13px;margin-bottom:2px}
+#cairn-capture-panel .cairn-space-save-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}
+#cairn-capture-panel .cairn-space-save-actions button{padding:7px 9px}
+#cairn-capture-panel .cairn-help-content{overflow-y:auto;display:grid;gap:7px;padding-right:2px;margin-bottom:8px}
+#cairn-capture-panel .cairn-help-content section{border:1px solid #e5e7eb;background:#f9fafb;border-radius:9px;padding:8px}
+#cairn-capture-panel .cairn-help-content section b{font-size:11px}
+#cairn-capture-panel .cairn-help-content section p{margin:3px 0 0;color:#4b5563;font-size:10.5px;line-height:1.35}
+#cairn-capture-panel.cairn-assistant-mode.cairn-brain-mode{width:min(390px,calc(100vw - 24px));height:min(590px,calc(100dvh - 72px))}
+@media(max-width:560px){#cairn-assistant-button{right:103px;bottom:8px}#cairn-chat-button{right:8px;bottom:8px}#cairn-capture-panel.cairn-assistant-mode{right:6px;bottom:52px;width:calc(100vw - 12px);height:min(560px,calc(100dvh - 60px))}}

@@ -1,0 +1,4 @@
+fastapi>=0.110
+uvicorn[standard]>=0.27
+watchfiles>=0.21
+markdown-it-py>=3.0

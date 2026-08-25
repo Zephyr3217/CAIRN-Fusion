@@ -1,0 +1,12 @@
+CAIRN browser extension (Chrome/Edge)
+
+1. Start CAIRN.bat and keep it running.
+2. In Chrome open chrome://extensions/ (Edge: edge://extensions/).
+3. Turn on Developer mode.
+4. Choose "Load unpacked".
+5. Select this project's browser_extension folder.
+6. Open the CAIRN dashboard at http://127.0.0.1:7821.
+7. Copy the Bridge token.
+8. Open the CAIRN extension popup and paste the token, then Save Settings.
+9. Highlight text on a webpage. Use the floating "Save to CAIRN" button or the context-menu item.
+10. The capture will be written as a new note inside CAIRN/Inbox/ in your selected vault (e.g. CAIRN/Inbox/Page Title.md). Each capture creates its own note; nothing is appended into a single Inbox file.
